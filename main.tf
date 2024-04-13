@@ -30,7 +30,7 @@ data hcp_group "joey-test-team" {
 }
 
 resource hcp_project_iam_binding "group_project_contributor" {
-  principal_id = hcp_group.joey-test-team.resource_id
+  principal_id = data.hcp_group.joey-test-team.resource_id
   project_id = hcp_project.provider_test_project.resource_id
   role = "roles/contributor"
 }
