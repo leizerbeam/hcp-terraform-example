@@ -54,4 +54,5 @@ resource tfe_team_project_access "admin" {
   access       = "read"
   team_id      = data.tfe_team.provider_test_tfe_team.id
   project_id   = data.tfe_project.provider_test_tfe_project.id
+  depends_on = [hcp_project_iam_binding.group_project_contributor]
 }
