@@ -20,7 +20,7 @@ data "tfe_team" "provider_test_tfe_team" {
 }
 
 data "tfe_project" "provider_test_tfe_project" {
-  name = hcp_project.provider_test_project.name
+  name = "provider_test_project"
   organization = "TFC-Unification-Test-Org-1"
 }
 
