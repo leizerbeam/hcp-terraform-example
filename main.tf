@@ -37,13 +37,14 @@ data "tfe_team" "provider_test_tfe_team" {
   organization = "TFC-Unification-Test-Org-1"
 }
 
-# With project permissions granted, now the Team API token can access the Terraform Project ID
+# CHICKEN-AND-EGG breakage - the Team API token has no access to the created project without first applying the above hcp_project_iam_binding.
+# However this main.tf doesnt apply because of an error (not access to the created project at the top of this configuration)
 data "tfe_project" "provider_test_tfe_project" {
   name = hcp_project.provider_test_project.name
   organization = "TFC-Unification-Test-Org-1"
 }
 
-# finally we can assign the Terraform Project Read role for the group to the developer group
+# Last step (what we were trying to do): assign the Terraform Project Read role for the group to the developer group
 resource "tfe_team_project_access" "admin" {
   access       = "read"
   team_id      = data.tfe_team.provider_test_tfe_team.id
