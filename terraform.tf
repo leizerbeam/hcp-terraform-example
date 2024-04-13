@@ -2,6 +2,7 @@ terraform {
 
   cloud {
     organization = "TFC-Unification-Test-Org-1"
+    hostname = "app.eu.terraform.io"
 
     workspaces {
       name = "test-unified-provider-joey"
