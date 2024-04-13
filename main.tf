@@ -23,14 +23,14 @@ data hcp_group "joey-test-team" {
 
 # HCP doesn't have a "Manage all projects" FGR (this is only at the Admin User role currently), so we must 
 # create a role binding to give the Group an Admin at the org level (NOT LEAST PRIVILEGE)
-#resource hcp_organization_iam_binding "group_org_contributor" {
+#resource hcp_organization_iam_binding "group_org_admin" {
 #  principal_id = "joey-test" # hardcoded name of team api token
 #  role = "roles/admin" # only admins can manage project role assignment
 #}
 
 # Alternatively, we give Project Admin access to to Team API Token (MORE SAFE, BUT NEEDS TO BE DONE FOR EACH PROJECT BEING CREATED)
 # Note: We will need Terraform Project Admin to become more least privilege; and to apply Global Exclusion Policies on top of this.
-resource hcp_project_iam_binding "group_project_contributor" {
+resource hcp_project_iam_binding "group_project_admin" {
   principal_id = data.hcp_group.joey-test-team.resource_id
   project_id = hcp_project.provider_test_project.resource_id
   role = "roles/admin" # only admins can manage project role assignment
@@ -47,7 +47,7 @@ data tfe_team "provider_test_tfe_team" {
 data tfe_project "provider_test_tfe_project" {
   name = hcp_project.provider_test_project.name
   organization = "TFC-Unification-Test-Org-1"
-  depends_on = [hcp_project_iam_binding.group_project_contributor]
+  depends_on = [hcp_project_iam_binding.group_project_admin]
 }
 
 # Assign the Terraform Project Maintainer role for the group to the developer group
@@ -56,5 +56,5 @@ resource tfe_team_project_access "test_group_project_maintainer" {
   access       = "maintain"
   team_id      = data.tfe_team.provider_test_tfe_team.id
   project_id   = data.tfe_project.provider_test_tfe_project.id
-  depends_on = [hcp_project_iam_binding.group_project_contributor]
+  depends_on = [hcp_project_iam_binding.group_project_admin]
 }
