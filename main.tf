@@ -19,14 +19,14 @@ resource "hcp_project" "provider_test_project" {
 # groups don't have a "Manage all projects" permission (this is only at the User role), so we must 
 # create a role binding to give the group Contributor role or higher to either org level (NOT AS SAFE)
 resource hcp_organization_iam_binding "group_org_contributor" {
-  principal_id = hcp_group.provider_test_group.resource_id
+  principal_id = "joey-test"
   role = "roles/contributor"
 }
 
 # groups don't have a "Manage all projects" permission (this is only at the User role), so we must 
 # create a role binding to give the group Contributor role for the project being created (MORE SAFE, BUT MORE CUMBERSOME)
 resource hcp_project_iam_binding "group_project_contributor" {
-  principal_id = hcp_group.provider_test_group.resource_id
+  principal_id = "joey-test"
   project_id = hcp_project.provider_test_project.resource_id
   role = "roles/contributor"
 }
