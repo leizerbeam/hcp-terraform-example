@@ -15,12 +15,12 @@ resource "hcp_project" "provider_test_project" {
 }
 
 data "tfe_team" "provider_test_tfe_team" {
-  name         = split("/", hcp_group.provider_test_group.resource_name)[5]
+  name         = hcp_group.provider_test_group.display_name
   organization = "TFC-Unification-Test-Org-1"
 }
 
 data "tfe_project" "provider_test_tfe_project" {
-  name = split("/",hcp_project.provider_test_project.name)[1]
+  name = hcp_project.provider_test_project.name
   organization = "TFC-Unification-Test-Org-1"
 }
 
