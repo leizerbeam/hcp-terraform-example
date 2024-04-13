@@ -25,8 +25,12 @@ resource hcp_project "provider_test_project" {
 
 # groups don't have a "Manage all projects" permission (this is only at the User role), so we must 
 # create a role binding to give the group Contributor role for the project being created (MORE SAFE, BUT MORE CUMBERSOME)
+data hcp_group "joey-test-team" {
+  resource_name = "joey-test"
+}
+
 resource hcp_project_iam_binding "group_project_contributor" {
-  principal_id = "joey-test"
+  principal_id = hcp_group.joey-test-team.resource_id
   project_id = hcp_project.provider_test_project.resource_id
   role = "roles/contributor"
 }
