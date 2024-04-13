@@ -58,7 +58,7 @@ data tfe_project "provider_test_tfe_project" {
 # Assign the Terraform Project Maintainer role to the developer group
 # This is an HCP Terraform application level explicit dependency that 'terraform' could not infer from the configuration without erroring out
 resource tfe_team_project_access "test_group_project_maintainer" {
-  access       = "maintain"
+  access       = role
   team_id      = data.tfe_team.provider_test_tfe_team.id
   project_id   = data.tfe_project.provider_test_tfe_project.id
   depends_on   = [hcp_project_iam_binding.group_project_admin]
