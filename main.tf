@@ -42,7 +42,7 @@ data tfe_team "provider_test_tfe_team" {
 data tfe_project "provider_test_tfe_project" {
   name = hcp_project.provider_test_project.name
   organization = "TFC-Unification-Test-Org-1"
-  depends_on [hcp_project_iam_binding.group_project_contributor]
+  depends_on = [hcp_project_iam_binding.group_project_contributor]
 }
 
 # Last step (what we were trying to do): assign the Terraform Project Read role for the group to the developer group
