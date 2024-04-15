@@ -20,10 +20,16 @@ resource hcp_terraform_group_project_access "test_group_project_maintainer" {
   access       = "terraform_maintain"
   group_id     = hcp_group.id
   project_id   = hcp_project.id
-  
 }
 
-resource hcp_terraform_workspace "provider_test_workspace" {
-  name = "provider_test_workspace"
-  project_id     = hcp_project.id
+resource hcp_terraform_workspace "provider_test_europe_workspace" {
+  name         = "provider_test_workspace"
+  project_id   = hcp_project.id
+  geo          = "us"
+}
+
+resource hcp_terraform_workspace "provider_test_us_workspace" {
+  name         = "provider_test_workspace"
+  project_id   = hcp_project.id
+  geo          = "eu"
 }
