@@ -23,7 +23,7 @@ resource hcp_terraform_group_project_access "test_group_project_maintainer" {
   
 }
 
-resource tfe_workspace "provider_test_workspace" {
+resource hcp_terraform_workspace "provider_test_workspace" {
   name = "provider_test_workspace"
   project_id     = hcp_project.id
 }
