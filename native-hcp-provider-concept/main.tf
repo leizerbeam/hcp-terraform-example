@@ -33,3 +33,17 @@ resource hcp_terraform_workspace "provider_test_us_workspace" {
   project_id   = hcp_project.provider_test_project.id
   geo          = "eu"
 }
+
+resource "hcp_vault_secrets_secret" "example" {
+  app_name     = "example-app-name"
+  secret_name  = "example_secret"
+  secret_value = var.secret
+}
+
+resource "hcp_terraform_variable" "test" {
+  key          = "my_key_name"
+  value        = hcp_vault_secrets_secret.secret_value
+  category     = "terraform"
+  workspace_id = hcp_terraform_workspace.provider_test_us_workspace.id
+  description  = "a useful description"
+}
