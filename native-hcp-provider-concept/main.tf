@@ -16,21 +16,21 @@ resource hcp_project "provider_test_project" {
 }
 
 # Assign the Terraform Project Maintainer role to the developer group
-resource hcp_terraform_group_project_access "test_group_project_maintainer" {
-  access       = "terraform_maintain"
-  group_id     = hcp_group.provider_test_group.id
-  project_id   = hcp_project.provider_test_project.id
+resource "hcp_project_iam_binding" "provider_test_project_maintain" {
+  project_id   = hcp_project.example.resource_id
+  principal_id = hcp_group.provider_test_group.resource_id
+  role         = "roles/terraform_maintain"
 }
 
 resource hcp_terraform_workspace "provider_test_europe_workspace" {
   name         = "provider_test_workspace"
-  project_id   = hcp_project.provider_test_project.id
+  project_id   = hcp_project.provider_test_project.resource_id
   geo          = "us"
 }
 
 resource hcp_terraform_workspace "provider_test_us_workspace" {
   name         = "provider_test_workspace"
-  project_id   = hcp_project.provider_test_project.id
+  project_id   = hcp_project.provider_test_project.resource_id
   geo          = "eu"
 }
 
