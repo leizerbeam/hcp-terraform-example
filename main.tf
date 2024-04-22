@@ -70,13 +70,13 @@ resource tfe_workspace "provider_test_workspace" {
   project_id     = data.tfe_project.provider_test_tfe_project.id
 }
 
-resource "hcp_vault_secrets_secret" "example" {
+resource hcp_vault_secrets_secret "example" {
   app_name     = "example-app-name"
   secret_name  = "example_secret"
   secret_value = var.secret
 }
 
-resource "tfe_variable" {
+resource tfe_variable "test_variable" {
   key          = "my_key_name"
   value        = hcp_vault_secrets_secret.secret_value
   category     = "terraform"
