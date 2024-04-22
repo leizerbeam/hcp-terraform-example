@@ -69,3 +69,17 @@ resource tfe_workspace "provider_test_workspace" {
   organization   = "TFC-Unification-Test-Org-1" # could be possibly substituted with data.hcp_organization.name
   project_id     = data.tfe_project.provider_test_tfe_project.id
 }
+
+resource "hcp_vault_secrets_secret" "example" {
+  app_name     = "example-app-name"
+  secret_name  = "example_secret"
+  secret_value = var.secret
+}
+
+resource "hcp_terraform_variable" "test" {
+  key          = "my_key_name"
+  value        = hcp_vault_secrets_secret.secret_value
+  category     = "terraform"
+  workspace_id = hcp_terraform_workspace.provider_test_us_workspace.id
+  description  = "a useful description"
+}
