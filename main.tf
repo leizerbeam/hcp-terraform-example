@@ -76,7 +76,7 @@ resource "hcp_vault_secrets_secret" "example" {
   secret_value = var.secret
 }
 
-resource "hcp_terraform_variable" "test" {
+resource "tfe_variable" {
   key          = "my_key_name"
   value        = hcp_vault_secrets_secret.secret_value
   category     = "terraform"
