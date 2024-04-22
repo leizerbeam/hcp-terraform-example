@@ -80,6 +80,6 @@ resource "tfe_variable" {
   key          = "my_key_name"
   value        = hcp_vault_secrets_secret.secret_value
   category     = "terraform"
-  workspace_id = hcp_terraform_workspace.provider_test_us_workspace.id
+  workspace_id = tfe_workspace.provider_test_workspace.id
   description  = "a useful description"
 }
